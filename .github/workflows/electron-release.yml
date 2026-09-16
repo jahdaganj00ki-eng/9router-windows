@@ -117,9 +117,6 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Sanitize Windows home directory
         shell: bash
         run: |
