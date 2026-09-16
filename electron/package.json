@@ -1,0 +1,94 @@
+{
+  "name": "9router-desktop",
+  "version": "0.0.0",
+  "description": "9Router Desktop Application",
+  "main": "main.js",
+  "author": {
+    "name": "9Router Team",
+    "email": "support@9router.app"
+  },
+  "license": "MIT",
+  "homepage": "https://9router.app",
+  "engines": {
+    "node": ">=22.22.2 <23 || >=24.0.0 <27"
+  },
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --no-sandbox",
+    "build": "node ../scripts/build/prepare-electron-standalone.mjs && electron-builder",
+    "build:win": "node ../scripts/build/prepare-electron-standalone.mjs && electron-builder --win",
+    "pack": "node ../scripts/build/prepare-electron-standalone.mjs && electron-builder --dir"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "app.9router.desktop",
+    "productName": "9Router",
+    "copyright": "Copyright © 2026 9Router",
+    "buildDependenciesFromSource": false,
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist-electron",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../.build/electron-standalone",
+        "to": "app",
+        "filter": [
+          "**/*",
+          "node_modules/**/*"
+        ]
+      },
+      {
+        "from": "../.build/electron-standalone/node_modules",
+        "to": "app/node_modules",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "assets",
+        "to": "assets",
+        "filter": [
+          "icon.png",
+          "icon.ico"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "${productName}.Setup.${version}.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico"
+    }
+  }
+}
