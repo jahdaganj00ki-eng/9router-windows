@@ -49,13 +49,6 @@
         ]
       },
       {
-        "from": "../.build/electron-standalone/node_modules",
-        "to": "app/node_modules",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
         "from": "assets",
         "to": "assets",
         "filter": [
